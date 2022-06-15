@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 const AuthContext = React.createContext({
   isLoggedIn: false,
   onLogout: () => {},
-  onLogin: (email, password) => {}
+  onLogin: (email, password) => {},
 });
 
 export const AuthContextProvider = (props) => {
@@ -18,16 +18,17 @@ export const AuthContextProvider = (props) => {
   }, []);
 
   const logoutHandler = () => {
-    localStorage.removeItem("IsLoggedIn");
+    localStorage.removeItem("isLoggedIn");
     setIsLoggedIn(false);
   };
+
   const loginHandler = () => {
-    setIsLoggedIn(true);
     localStorage.setItem("isLoggedIn", "1");
+    setIsLoggedIn(true);
   };
 
   return (
-    <AuthContextProvider
+    <AuthContext.Provider
       value={{
         isLoggedIn: isLoggedIn,
         onLogout: logoutHandler,
@@ -35,7 +36,7 @@ export const AuthContextProvider = (props) => {
       }}
     >
       {props.children}
-    </AuthContextProvider>
+    </AuthContext.Provider>
   );
 };
 
